@@ -2719,9 +2719,6 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  playerHalfHeight: 1
-  maxStepHeight: 0.4
-  stepForwardCheck: 0.5
 --- !u!54 &1770162548
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2783,7 +2780,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1770162544}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a5852b3697b5a4364ba973df0737b814, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
