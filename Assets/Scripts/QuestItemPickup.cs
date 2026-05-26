@@ -9,9 +9,7 @@ public class QuestItemPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             if(QuestManager.Instance.AddQuestProgress(questName))
-            {
                 Destroy(gameObject);
-            }
         }
     }
 }
