@@ -82,4 +82,12 @@ public class Quest
         questState = QuestState.Completed;
         Debug.Log($"[Quest] {questName} został ukończony!");
     }
+
+    /// <summary>
+    /// Zwraca nazwę odbiorcy questa
+    /// </summary>
+    public string GetQuestReceiverName()
+    {
+        return questReceiverName;
+    }
 }

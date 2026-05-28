@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class NPCDialogue : MonoBehaviour
 {
     [SerializeField] private Dialogue dialogue;
-    private GameObject NPCInteractCanvas;
+    [SerializeField] private GameObject NPCInteractCanvas;
     [SerializeField] private Animator animator;
 
     private void Start()
@@ -23,10 +23,13 @@ public class NPCDialogue : MonoBehaviour
 
     void Update()
     {
-        if(SceneManager.GetActiveScene().name != "Prolog")
+        if (NPCInteractCanvas != null)
         {
-            if (NPCInteractCanvas.activeSelf && Input.GetKeyDown(KeyCode.E))
-                TriggerDialogue();
+            if (SceneManager.GetActiveScene().name != "Prolog")
+            {
+                if (NPCInteractCanvas.activeSelf && Input.GetKeyDown(KeyCode.E))
+                    TriggerDialogue();
+            }
         }
     }
 
@@ -42,7 +45,7 @@ public class NPCDialogue : MonoBehaviour
             NPCInteractCanvas.SetActive(false);
     }
 
-    public void TriggerDialogue()
+    public void TriggerDialogue(string questReceiverName = "")
     {
         if (dialogue == null)
             return;
@@ -50,6 +53,6 @@ public class NPCDialogue : MonoBehaviour
         if (dialogue.GetVariants().Count == 0)
             return;
 
-        DialogueManager.Instance.StartDialogue(dialogue, animator);
+        DialogueManager.Instance.StartDialogue(dialogue, animator, questReceiverName);
     }
 }

@@ -19,6 +19,7 @@ public class DialogueManager : MonoBehaviour
     private Dialogue currentDialogue;
     private DialogueVariant currentVariant;
     private Animator npcAnimator;
+    private string questReceiverName = "";
 
     private void Awake()
     {
@@ -28,9 +29,10 @@ public class DialogueManager : MonoBehaviour
         playerObject = GameObject.FindGameObjectWithTag("Player");
     }
 
-    public void StartDialogue(Dialogue dialogue, Animator npcAnimator)
+    public void StartDialogue(Dialogue dialogue, Animator npcAnimator, string questReceiverName = "")
     {
         this.npcAnimator = npcAnimator;
+        this.questReceiverName = questReceiverName;
 
         if (dialogue == null)
         {
@@ -65,7 +67,8 @@ public class DialogueManager : MonoBehaviour
 
         foreach (string sentence in currentVariant.sentences)
         {
-            sentences.Enqueue(sentence);
+            string processedSentence = ProcessSentence(sentence);
+            sentences.Enqueue(processedSentence);
         }
 
         DisableCinemachineAxes();
@@ -145,6 +148,14 @@ public class DialogueManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private string ProcessSentence(string sentence)
+    {
+        if (string.IsNullOrEmpty(questReceiverName))
+            return sentence;
+        
+        return sentence.Replace("{receiverName}", questReceiverName);
     }
 
     private void EnableCinemachineAxes()

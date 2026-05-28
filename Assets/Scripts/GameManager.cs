@@ -2,21 +2,22 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static GameManager Instance;
+    private bool isLevelFinished = false;
+
+    private void Awake()
     {
-        
+        if (Instance == null) Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LevelFinished()
     {
-        
+        isLevelFinished = true;
     }
 
-    void OnTriggerEnter(Collider other)
+    public bool IsLevelFinished()
     {
-        
+        return isLevelFinished;
     }
 
 }

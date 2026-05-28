@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class QuestManager : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI questRedText;
     [SerializeField] private TextMeshProUGUI questGreenText;
     [SerializeField] private TextMeshProUGUI questBlueText;
+
+    [SerializeField] private NPCDialogue questReqirementsMet;
+
+
 
     void Awake()
     {
@@ -24,9 +29,9 @@ public class QuestManager : MonoBehaviour
 
     public void CreateQuest()
     {
-        quests.Add(new Quest("Red Quest", 3, "Wanilla", "Red Companion"));
-        quests.Add(new Quest("Green Quest", 15, "Wanilla", "Green Companion"));
-        quests.Add(new Quest("Blue Quest", 3, "Wanilla", "Blue Companion"));
+        quests.Add(new Quest("Red Quest", 3, "Wanilla", "Czerwonego Mnicha"));
+        quests.Add(new Quest("Green Quest", 7, "Wanilla", "Zielonego Mnicha"));
+        quests.Add(new Quest("Blue Quest", 3, "Wanilla", "Niebieskiego Mnicha"));
         
         Debug.Log("[QuestManager] Questy utworzone");
     }
@@ -49,6 +54,9 @@ public class QuestManager : MonoBehaviour
             if (quest.questState == QuestState.NotStarted)
             {
                 quest.questState = QuestState.InProgress;
+                questRedText.gameObject.SetActive(true);
+                questGreenText.gameObject.SetActive(true);
+                questBlueText.gameObject.SetActive(true);
                 Debug.Log($"[QuestManager] Quest '{quest.questName}' uruchomiony");
             }
         }
@@ -100,6 +108,9 @@ public class QuestManager : MonoBehaviour
             
             Debug.Log($"[QuestManager] Postęp '{questName}': {quest.currentProgress}/{quest.requiredProgress} (stan: {quest.questState})");
             
+            if(quest.questState == QuestState.Ready)
+                questReqirementsMet.TriggerDialogue(quest.GetQuestReceiverName());
+
             UpdateQuestUI();
             return true;
         }
@@ -137,21 +148,21 @@ public class QuestManager : MonoBehaviour
 
         switch (quest.questState)
         {
-            case QuestState.NotStarted:
-                textUI.text = $"{questName}: Not started";
-                break;
+            // case QuestState.NotStarted:
+            //     textUI.text = $"{questName}: Not started";
+            //     break;
                 
             case QuestState.InProgress:
-                textUI.text = $"{questName}: {quest.currentProgress}/{quest.requiredProgress}";
+                textUI.text = $"{quest.currentProgress}/{quest.requiredProgress}";
                 break;
                 
-            case QuestState.Ready:
-                textUI.text = $"{questName}: <color=green>Ready! Talk to {quest.questReceiverName}</color>";
-                break;
+            // case QuestState.Ready:
+            //     textUI.text = $"{questName}: <color=green>Ready! Talk to {quest.questReceiverName}</color>";
+            //     break;
                 
-            case QuestState.Completed:
-                textUI.text = $"{questName}: <color=green>Completed!</color>";
-                break;
+            // case QuestState.Completed:
+            //     textUI.text = $"{questName}: <color=green>Completed!</color>";
+            //     break;
         }
     }
 }
