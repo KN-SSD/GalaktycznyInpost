@@ -5,9 +5,14 @@ public class ManualDialogueTrigger : MonoBehaviour
      private NPCDialogue NPCDialogue;
     void Start()
     {
+
         NPCDialogue = GetComponent<NPCDialogue>();
-        NPCDialogue.TriggerDialogue();
+        Invoke("StartSceneDialogue", 0.1f);
     }
 
+    private void StartSceneDialogue()
+    {
+        NPCDialogue.TriggerDialogue();
+    }
     
 }

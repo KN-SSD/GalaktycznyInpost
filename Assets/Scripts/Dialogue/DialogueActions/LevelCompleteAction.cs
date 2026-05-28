@@ -13,6 +13,6 @@ public class LevelCompleteAction : IDialogueAction
         Debug.Log($"[LevelCompleteAction] {message}");
         // TODO: Implementuj logikę końca poziomu
         // LoadNextLevel, ShowCompletionScreen, itp.
-        SceneManager.LoadScene("Menu");
+        GameManager.Instance.LevelFinished();
     }
 }
